@@ -15,6 +15,7 @@ import { useRecoilState } from 'recoil';
 import { currentTrackIdState, iisPlayingState } from '../atoms/songAtom';
 import { useSongInfo } from '../hooks/useSongInfo';
 import { useSpotify } from '../hooks/useSpotify';
+import { Track } from '../types';
 
 const Player = (): ReactElement => {
   const { data: session } = useSession();
@@ -30,7 +31,7 @@ const Player = (): ReactElement => {
   const fetchCurrentSong = () => {
     if (!songInfo) {
       spotifyApi.getMyCurrentPlayingTrack().then((data) => {
-        setCurrentTrackId(data?.body?.item?.id);
+        setCurrentTrackId(data?.body?.item?.id as unknown as Track);
 
         spotifyApi.getMyCurrentPlaybackState().then((data) => {
           setIsPlaying(data?.body?.is_playing);
@@ -47,15 +48,18 @@ const Player = (): ReactElement => {
   }, [currentTrackId, spotifyApi, session]);
 
   const handlePlayPause = () => {
-    spotifyApi.getMyCurrentPlaybackState().then((data) => {
-      if (data?.body?.is_playing) {
-        spotifyApi.pause();
-        setIsPlaying(false);
-      } else {
-        spotifyApi.play();
-        setIsPlaying(true);
-      }
-    });
+    spotifyApi
+      .getMyCurrentPlaybackState()
+      .then((data) => {
+        if (data?.body?.is_playing) {
+          spotifyApi.pause();
+          setIsPlaying(false);
+        } else {
+          spotifyApi.play();
+          setIsPlaying(true);
+        }
+      })
+      .catch((e) => console.log('Error:', e));
   };
 
   const debounceAjustVolume = useCallback(
@@ -77,10 +81,12 @@ const Player = (): ReactElement => {
     grid grid-cols-3 text-xs md:text-base px-2 md:px-8
     ">
       <div className="flex items-center space-x-4">
-        <img
-          src={songInfo?.album.images?.[0]?.url || ''}
-          className="hidden md:inline h-10 w-10"
-        />
+        {songInfo && (
+          <img
+            src={songInfo?.album.images?.[0]?.url || ''}
+            className="hidden md:inline h-10 w-10"
+          />
+        )}
 
         <div>
           <h3>{songInfo?.name}</h3>
