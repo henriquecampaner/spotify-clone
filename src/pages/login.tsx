@@ -17,8 +17,6 @@ const Login = ({ providers }: LoginProps): ReactElement => {
       <img src="https://links.papareact.com/9xl" alt="" className="w-52 mb-5" />
       <p className="text-white">I am the staging</p>
 
-      <p className="text-white">I am a change</p>
-
       {Object.values(providers).map((provider) => (
         <div key={provider.id}>
           <button
