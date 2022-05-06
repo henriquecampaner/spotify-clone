@@ -28,6 +28,7 @@ jobs:
         run: |-
           yarn test
   sonarcloud:
+    needs: [build, tests]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -46,7 +47,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   preview:
-    needs: [build]
+    needs: [sonarcloud]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
