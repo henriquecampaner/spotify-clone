@@ -45,7 +45,7 @@ jobs:
         timeout-minutes: 5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-    create_preview:
+    createPreview:
       needs: [build]
       runs-on: ubuntu-latest
       steps:
