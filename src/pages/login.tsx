@@ -12,9 +12,11 @@ interface LoginProps {
 }
 
 const Login = ({ providers }: LoginProps): ReactElement => {
+  console.log(Math.random());
   return (
     <div className="flex flex-col items-center bg-black min-h-screen w-full justify-center">
       <img src="https://links.papareact.com/9xl" alt="" className="w-52 mb-5" />
+      <p>I am staging</p>
 
       {Object.values(providers).map((provider) => (
         <div key={provider.id}>
