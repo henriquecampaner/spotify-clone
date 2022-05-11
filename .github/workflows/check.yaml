@@ -5,7 +5,7 @@ on:
     branches: [staging, main]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -22,7 +22,7 @@ jobs:
         run: |-
           yarn test
   sonarcloud:
-    needs: [tests]
+    needs: [build-and-test]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
