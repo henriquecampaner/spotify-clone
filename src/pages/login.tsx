@@ -13,6 +13,8 @@ interface LoginProps {
 
 const Login = ({ providers }: LoginProps): ReactElement => {
   console.log('process.env.XD', process.env.NEXT_PUBLIC_XD);
+
+  console.log('asddasdasadsdas');
   return (
     <div className="flex flex-col items-center bg-black min-h-screen w-full justify-center">
       <img src="https://links.papareact.com/9xl" alt="" className="w-52 mb-5" />
