@@ -4,6 +4,7 @@ import { SessionProvider } from 'next-auth/react';
 import { RecoilRoot } from 'recoil';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  console.log('test');
   return (
     <SessionProvider session={pageProps.session}>
       <RecoilRoot>
