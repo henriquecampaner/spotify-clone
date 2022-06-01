@@ -22,27 +22,30 @@ jobs:
       - name: run tests
         run: |-
           yarn test
-  sonarcloud:
-    needs: [build-and-test]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          # Disabling shallow clone is recommended for improving relevancy of reporting
-          fetch-depth: 0
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      - name: SonarQube Quality Gate check
-        uses: sonarsource/sonarqube-quality-gate-action@master
-        # Force to fail step after specific time
-        timeout-minutes: 5
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  # sonarcloud:
+  #   needs: [build-and-test]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         # Disabling shallow clone is recommended for improving relevancy of reporting
+  #         fetch-depth: 0
+  #     - name: SonarCloud Scan
+  #       uses: sonarsource/sonarcloud-github-action@master
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  #     - name: SonarQube Quality Gate check
+  #       uses: sonarsource/sonarqube-quality-gate-action@master
+  #       # Force to fail step after specific time
+  #       timeout-minutes: 5
+  #       env:
+  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   preview:
-    needs: [sonarcloud]
+    # needs: [sonarcloud]
+    environment:
+      name: preview
+      url: ${{ steps.deploy_staging.outputs.webapp-url }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
