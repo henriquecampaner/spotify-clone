@@ -5,22 +5,6 @@ on:
   workflow_dispatch:
     branches: [main]
 jobs:
-  integration-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Cypress E2E
-        uses: cypress-io/github-action@v3
-        with:
-          browser: chrome
-          headless: true
-          record: true
-        env:
-          # pass the Dashboard record key as an environment variable
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          # pass GitHub token to allow accurately detecting a build vs a re-run build
-          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
   staging:
     needs: [integration-tests]
     name: Deploy to staging
@@ -43,13 +27,29 @@ jobs:
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}}
           working-directory: ./
           alias-domains: staging-spotify-clone-campaner.vercel.app
-
-  deploy:
+  integration-tests:
     needs: [staging]
-    name: Deploy to Prod
     environment:
       name: production
       url: http://potify-clone-campaner.vercel.app/
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Cypress E2E
+        uses: cypress-io/github-action@v3
+        with:
+          browser: chrome
+          headless: true
+          record: true
+        env:
+          # pass the Dashboard record key as an environment variable
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          # pass GitHub token to allow accurately detecting a build vs a re-run build
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+  deploy:
+    needs: [integration-tests]
+    name: Deploy to Prod
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
