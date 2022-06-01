@@ -13,11 +13,15 @@ jobs:
   cypress-run:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
-      - uses: cypress-io/github-action@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cypress tests
+        uses: ./
         with:
-          browser: chrome
-          headless: true
+          working-directory: examples/v10/basic
+          # since we do not install Cypress
+          # we should not attempt to run tests
   build-and-test:
     runs-on: ubuntu-latest
     steps:
