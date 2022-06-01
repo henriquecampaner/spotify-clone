@@ -77,7 +77,7 @@ jobs:
           working-directory: ./
           alias-domains: staging-spotify-clone-campaner.vercel.app
   deploy:
-    needs: [preview]
+    needs: [staging]
     name: Deploy to Prod
     environment:
       name: production
