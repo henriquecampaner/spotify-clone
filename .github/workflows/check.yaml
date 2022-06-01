@@ -45,7 +45,7 @@ jobs:
     # needs: [sonarcloud]
     environment:
       name: preview
-      url: pr-{{PR_NUMBER}}-spotify-clone-campaner.vercel.app
+      url: staging-spotify-clone-campaner.vercel.app
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
