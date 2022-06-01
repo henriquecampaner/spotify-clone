@@ -43,6 +43,7 @@ jobs:
   #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   preview:
     # needs: [sonarcloud]
+
     environment:
       name: preview
       url: http://staging-spotify-clone-campaner.vercel.app/
