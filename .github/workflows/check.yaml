@@ -11,17 +11,17 @@ on:
     branches: [main]
 jobs:
   cypress-run:
-    runs-on: ubuntu-20.04
+    name: Cypress run
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Cypress tests
-        uses: ./
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
         with:
-          working-directory: examples/v10/basic
-          # since we do not install Cypress
-          # we should not attempt to run tests
+          build: npm run build
+          start: npm run start
+          wait-on: http://localhost:3000
   build-and-test:
     runs-on: ubuntu-latest
     steps:
