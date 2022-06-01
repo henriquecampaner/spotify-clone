@@ -1,11 +1,23 @@
 name: Accounts - Check
 
+concurrency:
+  group: build-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 on:
   pull_request:
     branches: [main]
   workflow_dispatch:
     branches: [main]
 jobs:
+  cypress-run:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: cypress-io/github-action@v2
+        with:
+          browser: chrome
+          headless: true
   build-and-test:
     runs-on: ubuntu-latest
     steps:
