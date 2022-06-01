@@ -16,7 +16,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Cypress.io
-        uses: cypress-io/github-action@v2.9.7
+        uses: cypress-io/github-action@v3
   # build-and-test:
   #   runs-on: ubuntu-latest
   #   steps:
