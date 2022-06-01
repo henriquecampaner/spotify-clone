@@ -3,7 +3,8 @@ name: Accounts - Check
 on:
   pull_request:
     branches: [staging, main]
-
+  workflow_dispatch:
+    branches: [staging, main]
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
