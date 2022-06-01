@@ -1,6 +1,7 @@
 import { defineConfig } from 'cypress';
 
 export default defineConfig({
+  projectId: 'id3qtv',
   viewportWidth: 1980,
   viewportHeight: 1080,
 
@@ -12,13 +13,6 @@ export default defineConfig({
     baseUrl: 'http://staging-spotify-clone-campaner.vercel.app',
     setupNodeEvents(on, config) {
       // implement node event listeners here
-    },
-  },
-
-  component: {
-    devServer: {
-      framework: 'next',
-      bundler: 'webpack',
     },
   },
 });

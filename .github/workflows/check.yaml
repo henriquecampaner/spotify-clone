@@ -17,6 +17,15 @@ jobs:
         uses: actions/checkout@v2
       - name: Cypress.io
         uses: cypress-io/github-action@v3
+        with:
+          browser: chrome
+          headless: true
+          record: true
+        env:
+          # pass the Dashboard record key as an environment variable
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          # pass GitHub token to allow accurately detecting a build vs a re-run build
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
   # build-and-test:
   #   runs-on: ubuntu-latest
   #   steps:
