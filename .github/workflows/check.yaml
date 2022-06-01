@@ -10,14 +10,11 @@ on:
   workflow_dispatch:
     branches: [main]
 jobs:
-  cypress-run:
+  tests-v10:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
-      - uses: cypress-io/github-action@v4
-        with:
-          browser: chrome
-          headless: true
+      - name: Checkout
+        uses: actions/checkout@v2
   # build-and-test:
   #   runs-on: ubuntu-latest
   #   steps:
