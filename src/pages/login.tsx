@@ -28,7 +28,7 @@ const Login = ({ providers }: LoginProps): ReactElement => {
               })
             }
             className="bg-[#18d860] text-white p-5 rounded-full">
-            Login with - {provider.name} !
+            Login with - {provider.name}
           </button>
         </div>
       ))}
